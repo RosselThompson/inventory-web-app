@@ -1,16 +1,18 @@
-import { useState } from "react";
-import { Button } from "./components/ui/button";
+import { BrowserRouter, Navigate, Route, Routes } from "react-router";
+import NotFound from "./pages/NotFound";
+import SignIn from "./pages/SignIn";
 
 function App() {
-	const [count, setCount] = useState(0);
-
 	return (
-		<>
-			<h1>Vite + React</h1>
-			<Button onClick={() => setCount((count) => count + 1)}>
-				count is {count}
-			</Button>
-		</>
+		<BrowserRouter>
+			<Routes>
+				{/* <Route path='/' element={<Layout />}> */}
+					<Route index element={<Navigate to='/sign-in' replace />} />
+					<Route path='/sign-in' element={<SignIn />} />
+					<Route path='*' element={<NotFound />} />
+				{/* </Route> */}
+			</Routes>
+		</BrowserRouter>
 	);
 }
 
