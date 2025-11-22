@@ -1,18 +1,13 @@
-import { BrowserRouter, Navigate, Route, Routes } from "react-router";
-import NotFound from "./pages/NotFound";
-import SignIn from "./pages/SignIn";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import Router from "./routers/Router";
+
+const queryClient = new QueryClient();
 
 function App() {
 	return (
-		<BrowserRouter>
-			<Routes>
-				{/* <Route path='/' element={<Layout />}> */}
-					<Route index element={<Navigate to='/sign-in' replace />} />
-					<Route path='/sign-in' element={<SignIn />} />
-					<Route path='*' element={<NotFound />} />
-				{/* </Route> */}
-			</Routes>
-		</BrowserRouter>
+		<QueryClientProvider client={queryClient}>
+			<Router />
+		</QueryClientProvider>
 	);
 }
 
