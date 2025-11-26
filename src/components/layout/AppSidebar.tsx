@@ -1,5 +1,4 @@
-import { Link, useLocation } from "react-router";
-import { Receipt, Box, LayoutDashboard, Undo, Sheet } from "lucide-react";
+import { useLocation } from "react-router";
 
 import {
 	Sidebar,
@@ -8,52 +7,19 @@ import {
 	SidebarGroupContent,
 	SidebarGroupLabel,
 	SidebarMenu,
-	SidebarMenuButton,
 	SidebarMenuItem,
 	useSidebar,
 } from "@/components/ui/sidebar";
 
-import {
-	DASHBOARD_PATH,
-	PRODUCTS_PATH,
-	REPORTS_PATH,
-	RETURNS_PATH,
-	SALES_PATH,
-} from "@/constants/path";
-
-const items = [
-	{
-		title: "Dashboard",
-		url: DASHBOARD_PATH,
-		icon: LayoutDashboard,
-	},
-	{
-		title: "Products",
-		url: PRODUCTS_PATH,
-		icon: Box,
-	},
-	{
-		title: "Sales",
-		url: SALES_PATH,
-		icon: Receipt,
-	},
-	{
-		title: "Returns",
-		url: RETURNS_PATH,
-		icon: Undo,
-	},
-	{
-		title: "Reports",
-		url: REPORTS_PATH,
-		icon: Sheet,
-	},
-];
+import { MENU_ITEMS } from "@/constants/menu";
+import AppSidebarMenuButton from "./AppSidebarMenuButton";
 
 export function AppSidebar() {
 	const { pathname } = useLocation();
-	const { isMobile, toggleSidebar } = useSidebar();
+	const { isMobile, toggleSidebar, open } = useSidebar();
+	const isClose = !open;
 
-	const mappedItems = items.map((i) => ({
+	const mappedItems = MENU_ITEMS.map((i) => ({
 		...i,
 		isActive: pathname.startsWith(i.url),
 	}));
@@ -69,16 +35,11 @@ export function AppSidebar() {
 						<SidebarMenu>
 							{mappedItems.map((item) => (
 								<SidebarMenuItem key={item.title}>
-									<SidebarMenuButton
-										asChild
-										isActive={item.isActive}
+									<AppSidebarMenuButton
+										item={item}
 										onClick={handleOpenStateForMobile}
-									>
-										<Link to={item.url}>
-											<item.icon />
-											<span>{item.title}</span>
-										</Link>
-									</SidebarMenuButton>
+										showTooltip={!isMobile ? isClose : false}
+									/>
 								</SidebarMenuItem>
 							))}
 						</SidebarMenu>

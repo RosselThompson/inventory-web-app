@@ -30,7 +30,6 @@ const Router = () => {
 					<Route path='/' element={<Layout />}>
 						<Route path={DASHBOARD_PATH} element={<Dashboard />} />
 						<Route path={PRODUCTS_PATH} element={<Products />} />
-						<Route path={'/products/:id'} element={<Products />} />
 						<Route path={SALES_PATH} element={<Sales />} />
 						<Route path={RETURNS_PATH} element={<Returns />} />
 						<Route path={REPORTS_PATH} element={<Reports />} />
