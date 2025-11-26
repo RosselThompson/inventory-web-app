@@ -21,22 +21,22 @@ import { AuthRoute } from "./AuthRoute";
 const Router = () => {
 	return (
 		<BrowserRouter>
-			<Routes>
-				<Route element={<AuthRoute />}>
-					<Route path={SIGN_IN_PATH} element={<SignIn />} />
-				</Route>
-				<Route element={<PrivateRoute />}>
-					<Route index element={<Navigate to={DASHBOARD_PATH} replace />} />
-					<Route path='/' element={<Layout />}>
-						<Route path={DASHBOARD_PATH} element={<Dashboard />} />
-						<Route path={PRODUCTS_PATH} element={<Products />} />
-						<Route path={SALES_PATH} element={<Sales />} />
-						<Route path={RETURNS_PATH} element={<Returns />} />
-						<Route path={REPORTS_PATH} element={<Reports />} />
+				<Routes>
+					<Route element={<AuthRoute />}>
+						<Route path={SIGN_IN_PATH} element={<SignIn />} />
 					</Route>
-				</Route>
-				<Route path='*' element={<NotFound />} />
-			</Routes>
+					<Route element={<PrivateRoute />}>
+						<Route index element={<Navigate to={DASHBOARD_PATH} replace />} />
+						<Route path='/' element={<Layout />}>
+							<Route path={DASHBOARD_PATH} element={<Dashboard />} />
+							<Route path={PRODUCTS_PATH} element={<Products />} />
+							<Route path={SALES_PATH} element={<Sales />} />
+							<Route path={RETURNS_PATH} element={<Returns />} />
+							<Route path={REPORTS_PATH} element={<Reports />} />
+						</Route>
+					</Route>
+					<Route path='*' element={<NotFound />} />
+				</Routes>
 		</BrowserRouter>
 	);
 };

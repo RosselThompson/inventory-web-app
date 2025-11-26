@@ -1,19 +1,33 @@
-import axios from 'axios'
+import { TOKEN_KEY } from "@/constants/auth";
+import { SIGN_IN_PATH } from "@/constants/path";
+import axios, { AxiosError } from "axios";
 
 export const api = axios.create({
-  baseURL: import.meta.env.VITE_API_BASE_URL,
-  headers: {
-    'Content-Type': 'application/json',
-  },
-})
+	baseURL: import.meta.env.VITE_API_BASE_URL,
+	headers: {
+		"Content-Type": "application/json",
+	},
+});
 
 api.interceptors.request.use(
-  (config) => {
-    const token = localStorage.getItem('access_token')
-    if (token) {
-      config.headers.Authorization = `Bearer ${token}`
-    }
-    return config
-  },
-  (error) => Promise.reject(error)
-)
+	(config) => {
+		const token = localStorage.getItem(TOKEN_KEY);
+		if (token) {
+			config.headers.Authorization = `Bearer ${token}`;
+		}
+		return config;
+	},
+	(error) => Promise.reject(error)
+);
+
+api.interceptors.response.use(
+	(response) => response,
+	(error: AxiosError) => {
+		if (error.response?.status === 401) {
+			localStorage.removeItem(TOKEN_KEY);
+			window.location.href = SIGN_IN_PATH;
+		}
+
+		return Promise.reject(error);
+	}
+);
