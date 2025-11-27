@@ -5,7 +5,7 @@ import {
 	REPORTS_PATH,
 	RETURNS_PATH,
 	SALES_PATH,
-} from "./path";
+} from "./path.constant";
 import { Box, LayoutDashboard, Receipt, Sheet, Undo } from "lucide-react";
 
 export const MENU_ITEMS: MenuItem[] = [

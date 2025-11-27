@@ -1,5 +1,5 @@
 import { api } from "@/api/axios/inventory-api";
-import { INVENTORY_API_ENDPOINTS } from "@/constants/endpoints";
+import { INVENTORY_API_ENDPOINTS } from "@/constants/endpoints.constant";
 import type { PaginatedData } from "@/interfaces/responses/pagination.response";
 import type { ProductInListResponse } from "@/interfaces/responses/product.response";
 import { keepPreviousData, useQuery } from "@tanstack/react-query";

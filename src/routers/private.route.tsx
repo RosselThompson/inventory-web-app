@@ -1,5 +1,5 @@
 import { Navigate, Outlet } from "react-router";
-import { SIGN_IN_PATH } from "@/constants/path";
+import { SIGN_IN_PATH } from "@/constants/path.constant";
 import { isAuthenticated } from "@/helpers/auth";
 
 export const PrivateRoute = () => {

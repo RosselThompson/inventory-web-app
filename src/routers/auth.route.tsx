@@ -1,4 +1,4 @@
-import { DASHBOARD_PATH } from "@/constants/path";
+import { DASHBOARD_PATH } from "@/constants/path.constant";
 import { isAuthenticated } from "@/helpers/auth";
 import { Navigate, Outlet } from "react-router";
 

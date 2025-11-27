@@ -11,8 +11,8 @@ import {
 	useSidebar,
 } from "@/components/ui/sidebar";
 
-import { MENU_ITEMS } from "@/constants/menu";
-import AppSidebarMenuButton from "./AppSidebarMenuButton";
+import { MENU_ITEMS } from "@/constants/menu.constant";
+import AppSidebarMenuButton from "./app-sidebar-menu-button";
 
 export function AppSidebar() {
 	const { pathname } = useLocation();

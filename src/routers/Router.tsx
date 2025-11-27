@@ -6,17 +6,17 @@ import {
 	RETURNS_PATH,
 	SALES_PATH,
 	SIGN_IN_PATH,
-} from "@/constants/path";
-import Dashboard from "@/pages/Dashboard";
-import SignIn from "@/pages/SignIn";
-import NotFound from "@/pages/NotFound";
-import Layout from "@/components/layout/Layout";
-import Products from "@/pages/Products";
-import Sales from "@/pages/Sales";
-import Returns from "@/pages/Returns";
-import Reports from "@/pages/Reports";
-import { PrivateRoute } from "./PrivateRoute";
-import { AuthRoute } from "./AuthRoute";
+} from "@/constants/path.constant";
+import Dashboard from "@/pages/dashboard.page";
+import SignIn from "@/pages/sign-in.page";
+import NotFound from "@/pages/not-found.page";
+import AppLayout from "@/components/layout/app-layout";
+import Products from "@/pages/products.page";
+import Sales from "@/pages/sales.page";
+import Returns from "@/pages/returns.page";
+import Reports from "@/pages/reports.page";
+import { PrivateRoute } from "./private.route";
+import { AuthRoute } from "./auth.route";
 
 const Router = () => {
 	return (
@@ -27,7 +27,7 @@ const Router = () => {
 					</Route>
 					<Route element={<PrivateRoute />}>
 						<Route index element={<Navigate to={DASHBOARD_PATH} replace />} />
-						<Route path='/' element={<Layout />}>
+						<Route path='/' element={<AppLayout />}>
 							<Route path={DASHBOARD_PATH} element={<Dashboard />} />
 							<Route path={PRODUCTS_PATH} element={<Products />} />
 							<Route path={SALES_PATH} element={<Sales />} />

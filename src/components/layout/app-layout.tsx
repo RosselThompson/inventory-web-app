@@ -1,11 +1,11 @@
 import { Outlet } from "react-router";
 import { SidebarProvider } from "@/components/ui/sidebar";
-import { AppSidebar } from "./AppSidebar";
+import { AppSidebar } from "./app-sidebar";
 import { Separator } from "../ui/separator";
-import AppSidebarButton from "./AppSidebarButton";
-import AppBreadcrumb from "./AppBreadcrumb";
+import AppSidebarButton from "./app-sidebar-button";
+import AppBreadcrumb from "./app-breadcrumb";
 
-export default function Layout() {
+export default function AppLayout() {
 	return (
 		<SidebarProvider>
 			<AppSidebar />

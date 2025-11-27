@@ -3,10 +3,10 @@ import {
 	useProductList,
 	type ProductSearchParam,
 } from "@/api/hooks/queries/use-product-list";
-import { StickyAddButton } from "@/components/common/buttons/StickyButton";
-import SearchInput from "@/components/common/inputs/SearchInput";
-import ProductCard from "@/components/product/ProductCard";
-import ProductFilter from "@/components/product/ProductFilter";
+import { StickyAddButton } from "@/components/common/buttons/sticky-button";
+import SearchInput from "@/components/common/inputs/search-input";
+import ProductCard from "@/components/product/product-card";
+import ProductFilter from "@/components/product/product-filter";
 import { Button } from "@/components/ui/button";
 import { useDebounce } from "@/hooks/use-debounce";
 import type { ProductInListResponse } from "@/interfaces/responses/product.response";
@@ -21,7 +21,10 @@ const Products = () => {
 	const [products, setProducts] = useState<ProductInListResponse[]>([]);
 
 	const debouncedQuery = useDebounce(query, 600);
-	const { data, isLoading } = useProductList(searchParam, debouncedQuery);
+	const { data, isLoading, isError } = useProductList(
+		searchParam,
+		debouncedQuery
+	);
 
 	const sourceData = isFiltered ? products : data?.data || [];
 	const searchParamItems = [
@@ -75,6 +78,8 @@ const Products = () => {
 		setQuery(e.target.value);
 
 	const handleSeachInputClean = () => setQuery("");
+
+	if (isError) return <p>Error</p>;
 
 	return (
 		<div>

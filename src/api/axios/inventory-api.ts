@@ -1,5 +1,5 @@
-import { TOKEN_KEY } from "@/constants/auth";
-import { SIGN_IN_PATH } from "@/constants/path";
+import { TOKEN_KEY } from "@/constants/auth.constant";
+import { SIGN_IN_PATH } from "@/constants/path.constant";
 import axios, { AxiosError } from "axios";
 
 export const api = axios.create({

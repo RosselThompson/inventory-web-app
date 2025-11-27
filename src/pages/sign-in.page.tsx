@@ -25,7 +25,7 @@ import type { SignInDto } from "@/interfaces/dto/sign-in.dto";
 import { useForm } from "react-hook-form";
 import { signInSchema } from "@/lib/schemas/sign-in.schema";
 import { handleException } from "@/helpers/handle-exception";
-import { DASHBOARD_PATH } from "@/constants/path";
+import { DASHBOARD_PATH } from "@/constants/path.constant";
 import { setAuthentication } from "@/helpers/auth";
 
 const SignIn = () => {
