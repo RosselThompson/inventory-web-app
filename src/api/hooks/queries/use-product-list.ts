@@ -1,0 +1,24 @@
+import { api } from "@/api/axios/inventory-api";
+import { INVENTORY_API_ENDPOINTS } from "@/constants/endpoints";
+import type { PaginatedData } from "@/interfaces/responses/pagination.response";
+import type { ProductInListResponse } from "@/interfaces/responses/product.response";
+import { keepPreviousData, useQuery } from "@tanstack/react-query";
+
+export type ProductSearchParam = "name" | "sku";
+
+export function useProductList(param?: ProductSearchParam, value?: string) {
+	return useQuery({
+		queryKey: ["productList", value],
+		queryFn: async (): Promise<PaginatedData<ProductInListResponse>> => {
+			const { data } = await api.get(INVENTORY_API_ENDPOINTS.product, {
+				params: {
+					...(param === "name" ? { s_name: value } : {}),
+					...(param === "sku" ? { s_sku: value } : {}),
+				},
+			});
+			return data;
+		},
+		staleTime: 1000 * 60 * 5, // 5 MINUTES
+		placeholderData: keepPreviousData,
+	});
+}

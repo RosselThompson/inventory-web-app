@@ -1,5 +1,5 @@
 import { useMutation } from "@tanstack/react-query";
-import { api } from "@/api/axios/inventoryAPI";
+import { api } from "@/api/axios/inventory-api";
 import type { SignInDto } from "@/interfaces/dto/sign-in.dto";
 import type { SignInResponse } from "@/interfaces/responses/sign-in.response";
 import { INVENTORY_API_ENDPOINTS } from "@/constants/endpoints";

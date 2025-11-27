@@ -1,18 +1,116 @@
-import { useProductList } from "@/api/hooks/queries/useProductList";
+import { useState, type ChangeEvent } from "react";
+import {
+	useProductList,
+	type ProductSearchParam,
+} from "@/api/hooks/queries/use-product-list";
+import { StickyAddButton } from "@/components/common/buttons/StickyButton";
+import SearchInput from "@/components/common/inputs/SearchInput";
+import ProductCard from "@/components/product/ProductCard";
+import ProductFilter from "@/components/product/ProductFilter";
+import { Button } from "@/components/ui/button";
+import { useDebounce } from "@/hooks/use-debounce";
+import type { ProductInListResponse } from "@/interfaces/responses/product.response";
+import CardSkeleton from "@/components/common/skeleton/card-skeleton";
+import DropdownButton from "@/components/common/dropdown/dropdown-button";
+import { SlidersVertical } from "lucide-react";
 
 const Products = () => {
-	const { data, isLoading, isError } = useProductList();
+	const [query, setQuery] = useState("");
+	const [searchParam, setSearchParam] = useState<ProductSearchParam>("name");
+	const [isFiltered, setisFiltered] = useState(false);
+	const [products, setProducts] = useState<ProductInListResponse[]>([]);
 
-	if (isLoading) {
-		return <p>Loading...</p>;
-	}
-	if (isError) {
-		return <p>Error</p>;
-	}
+	const debouncedQuery = useDebounce(query, 600);
+	const { data, isLoading } = useProductList(searchParam, debouncedQuery);
+
+	const sourceData = isFiltered ? products : data?.data || [];
+	const searchParamItems = [
+		{
+			key: "name",
+			text: "By Name",
+			onClick: () => setSearchParam("name"),
+		},
+		{
+			key: "name",
+			text: "By SKU",
+			onClick: () => setSearchParam("sku"),
+		},
+	];
+
+	const onClickFilterAll = () => setisFiltered(false);
+
+	const onClickFilterOrderByStock = (order: "up" | "down") => {
+		const originalProducts = data?.data || [];
+		let sorteredProducts: ProductInListResponse[] = [];
+
+		if (order === "up") {
+			sorteredProducts = [...originalProducts].sort(
+				(a, b) => a.stockQuantity - b.stockQuantity
+			);
+		}
+
+		if (order === "down") {
+			sorteredProducts = [...originalProducts].sort(
+				(a, b) => b.stockQuantity - a.stockQuantity
+			);
+		}
+		setProducts(sorteredProducts);
+		setisFiltered(true);
+	};
+
+	const onClickFilterOrderByPrice = (order: "up" | "down") => {
+		const originalProducts = data?.data || [];
+
+		if (order === "up") {
+			setProducts([...originalProducts].sort((a, b) => a.price - b.price));
+		}
+		if (order === "down") {
+			setProducts([...originalProducts].sort((a, b) => b.price - a.price));
+		}
+
+		setisFiltered(true);
+	};
+
+	const handleSearchInputChange = (e: ChangeEvent<HTMLInputElement>) =>
+		setQuery(e.target.value);
+
+	const handleSeachInputClean = () => setQuery("");
+
 	return (
 		<div>
-			<h1>Products</h1>
-			<pre>{JSON.stringify(data)}</pre>
+			<div className='sticky top-0 z-10 bg-background py-2'>
+				<div className='flex space-x-2'>
+					<div className='relative w-full'>
+						<SearchInput
+							value={query}
+							placeholder={`Search product by ${searchParam}`}
+							onChange={handleSearchInputChange}
+							onCleanText={handleSeachInputClean}
+						/>
+					</div>
+					<DropdownButton icon={<SlidersVertical />} items={searchParamItems} />
+				</div>
+				<ProductFilter
+					onClickAll={onClickFilterAll}
+					onClickOrderByStock={onClickFilterOrderByStock}
+					onClickOrderByPrice={onClickFilterOrderByPrice}
+				/>
+			</div>
+			<div className='flex flex-col gap-2 py-2 px-2'>
+				{isLoading ? (
+					<CardSkeleton />
+				) : (
+					sourceData.map((product) => <ProductCard product={product} />)
+				)}
+			</div>
+			{data?.meta.hasNextPage && (
+				<div className='w-full flex aligns-center justify-center mt-4'>
+					<Button variant='ghost' onClick={() => {}}>
+						Load more
+					</Button>
+				</div>
+			)}
+			<StickyAddButton label='Add Product' />
 		</div>
 	);
 };

@@ -20,7 +20,7 @@ import { Input } from "@/components/ui/input";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { AlertCircle, ShoppingCart } from "lucide-react";
-import { useSignIn } from "@/api/hooks/mutations/useSignIn";
+import { useSignIn } from "@/api/hooks/mutations/use-sign-in";
 import type { SignInDto } from "@/interfaces/dto/sign-in.dto";
 import { useForm } from "react-hook-form";
 import { signInSchema } from "@/lib/schemas/sign-in.schema";
@@ -32,6 +32,7 @@ const SignIn = () => {
 	const navigate = useNavigate();
 	const { mutateAsync, isPending } = useSignIn();
 	const [error, setError] = useState<string | undefined>();
+	const [originError, setoriginError] = useState<unknown>();
 
 	const form = useForm<SignInDto>({
 		resolver: zodResolver(signInSchema),
@@ -44,6 +45,7 @@ const SignIn = () => {
 			setAuthentication(data.access_token);
 			navigate(DASHBOARD_PATH);
 		} catch (err) {
+			setoriginError(err);
 			const message = handleException(err);
 			setError(message);
 		}
@@ -69,7 +71,7 @@ const SignIn = () => {
 					{error && (
 						<Alert variant='destructive' className='bg-red-100 border-0 mb-8'>
 							<AlertCircle className='h-4 w-4' />
-							<AlertDescription>{error}</AlertDescription>
+							<AlertDescription>{String(originError)}</AlertDescription>
 						</Alert>
 					)}
 					<Form {...form}>
@@ -98,7 +100,7 @@ const SignIn = () => {
 										<FormLabel>Password</FormLabel>
 										<FormControl>
 											<Input
-												placeholder='••••••••'
+												placeholder='Password'
 												type='password'
 												{...field}
 											/>
