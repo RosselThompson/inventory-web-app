@@ -22,7 +22,7 @@ const AppBreadcrumb = () => {
 					return (
 						<BreadcrumbItem key={segment}>
 							{isLast ? (
-                                <BreadcrumbPage>{pageName}</BreadcrumbPage>
+                                <BreadcrumbPage className="truncate w-30">{pageName}</BreadcrumbPage>
 							) : (
                                 <Link to={to}>{pageName}</Link>
 							)}

@@ -5,7 +5,6 @@ import {
 	SidebarContent,
 	SidebarGroup,
 	SidebarGroupContent,
-	SidebarGroupLabel,
 	SidebarMenu,
 	SidebarMenuItem,
 	useSidebar,
@@ -30,7 +29,6 @@ export function AppSidebar() {
 		<Sidebar variant='floating' collapsible='icon' onChange={toggleSidebar}>
 			<SidebarContent>
 				<SidebarGroup>
-					<SidebarGroupLabel>POS Express</SidebarGroupLabel>
 					<SidebarGroupContent>
 						<SidebarMenu>
 							{mappedItems.map((item) => (

@@ -1,15 +1,17 @@
-import type { ProductInListResponse } from "@/interfaces/responses/product.response";
+import type { ProductResponse } from "@/interfaces/responses/product.response";
 
 interface ProductCardProps {
-	product: ProductInListResponse;
+	product: ProductResponse;
+	onClick: (id: string) => void;
 }
 
 const ProductCard = (props: ProductCardProps) => {
-	const { product } = props;
+	const { product, onClick } = props;
 	return (
 		<div
 			key={product.sku}
-			className='flex items-center gap-3 rounded-md border border-muted bg-card p-3'
+			className='flex items-center gap-3 rounded-md border border-muted bg-card p-3 cursor-pointer'
+			onClick={() => onClick(product.id)}
 		>
 			<img
 				src='/images/img-placeholder.png' // PRODUCT IMAGE FROM S3

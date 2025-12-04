@@ -1,6 +1,7 @@
 export const DASHBOARD_PATH = '/dashboard'
 export const SIGN_IN_PATH = '/sign-in'
 export const PRODUCTS_PATH = '/products'
+export const PRODUCT_DETAIL_PATH = '/products/:id'
 export const SALES_PATH = '/sales'
 export const RETURNS_PATH = '/returns'
 export const REPORTS_PATH = '/reports'

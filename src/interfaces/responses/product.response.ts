@@ -1,7 +1,7 @@
 import type { CURRENCY, UNIT_OF_MEASURE } from "@/lib/types";
 import type { BaseEntity } from "../common/base-entity.interface";
 
-export interface ProductInListResponse extends BaseEntity {
+export interface ProductResponse extends BaseEntity {
 	name: string;
 	sku: string;
 	unitOfMeasure: UNIT_OF_MEASURE;

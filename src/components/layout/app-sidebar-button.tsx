@@ -1,13 +1,14 @@
-import { PanelLeftOpen, PanelLeftClose } from "lucide-react";
+import { Menu } from "lucide-react";
 import { Button } from "../ui/button";
 import { useSidebar } from "../ui/sidebar";
 
 const AppSidebarButton = () => {
-	const { toggleSidebar, open } = useSidebar();
+	const { toggleSidebar } = useSidebar();
 
 	return (
-		<Button variant='ghost' size='icon' onClick={toggleSidebar}>
-			{open ? <PanelLeftClose /> : <PanelLeftOpen />}
+		<Button variant='ghost' onClick={toggleSidebar}>
+			{/* {open ? <PanelLeftClose /> : <PanelLeftOpen />} */}
+			<Menu />
 		</Button>
 	);
 };
