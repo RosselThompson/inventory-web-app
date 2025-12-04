@@ -1,7 +1,13 @@
-import Router from "@/routers/Router";
+import { Toaster } from "sonner";
+import Router from "./routers/router";
 
 function App() {
-	return <Router />;
+	return (
+		<>
+			<Toaster />
+			<Router />
+		</>
+	);
 }
 
 export default App;

@@ -18,7 +18,7 @@ export function useProductList(param?: ProductSearchParam, value?: string) {
 			});
 			return data;
 		},
-		staleTime: 1000 * 60 * 5, // 5 MINUTES
+		staleTime: 1000 * 60 * 2,
 		placeholderData: keepPreviousData,
 	});
 }

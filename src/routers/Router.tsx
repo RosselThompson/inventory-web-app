@@ -1,6 +1,7 @@
 import { BrowserRouter, Navigate, Route, Routes } from "react-router";
 import {
 	DASHBOARD_PATH,
+	PRODUCT_CREATION_PATH,
 	PRODUCT_DETAIL_PATH,
 	PRODUCTS_PATH,
 	REPORTS_PATH,
@@ -14,6 +15,7 @@ import NotFound from "@/pages/not-found.page";
 import AppLayout from "@/components/layout/app-layout";
 import Products from "@/pages/products/products.page";
 import ProductDetail from "@/pages/products/product-detail.page";
+import ProductCreation from "@/pages/products/product-creation.page";
 import Sales from "@/pages/sales.page";
 import Returns from "@/pages/returns.page";
 import Reports from "@/pages/reports.page";
@@ -32,6 +34,7 @@ const Router = () => {
 						<Route path='/' element={<AppLayout />}>
 							<Route path={DASHBOARD_PATH} element={<Dashboard />} />
 							<Route path={PRODUCTS_PATH} element={<Products />} />
+							<Route path={PRODUCT_CREATION_PATH} element={<ProductCreation />} />
 							<Route path={PRODUCT_DETAIL_PATH} element={<ProductDetail />} />
 
 							<Route path={SALES_PATH} element={<Sales />} />

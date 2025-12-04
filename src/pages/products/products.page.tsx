@@ -14,7 +14,7 @@ import CardSkeleton from "@/components/common/skeleton/card-skeleton";
 import DropdownButton from "@/components/common/dropdown/dropdown-button";
 import { SlidersVertical } from "lucide-react";
 import { useNavigate } from "react-router";
-import { PRODUCTS_PATH } from "@/constants/path.constant";
+import { PRODUCT_CREATION_PATH, PRODUCTS_PATH } from "@/constants/path.constant";
 
 const Products = () => {
 	const navigate = useNavigate();
@@ -84,6 +84,8 @@ const Products = () => {
 
 	const onClickProductCard = (id: string) => navigate(`${PRODUCTS_PATH}/${id}`);
 
+	const onClickAddProductButton = () => navigate(PRODUCT_CREATION_PATH);
+
 	if (isError) return <p>Error</p>;
 
 	return (
@@ -120,7 +122,7 @@ const Products = () => {
 					</Button>
 				</div>
 			)}
-			<StickyAddButton label='Add Product' />
+			<StickyAddButton label='Add Product' onClick={onClickAddProductButton} />
 		</div>
 	);
 };

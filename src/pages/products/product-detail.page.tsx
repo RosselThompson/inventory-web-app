@@ -1,11 +1,11 @@
+import { useParams } from "react-router";
+import { Box, CircleDollarSign, Package, Ruler } from "lucide-react";
 import { useProductDetail } from "@/api/hooks/queries/use-product-detail";
 import BackButton from "@/components/common/buttons/back-button";
 import CardSkeleton from "@/components/common/skeleton/card-skeleton";
 import { Card, CardContent } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
-import { Box, CircleDollarSign, Package, Ruler } from "lucide-react";
-import { useParams } from "react-router";
-import ErrorPage from "../error.page";
+import ErrorPage from "@/pages/error.page";
 
 const ProductDetail = () => {
 	const { id } = useParams();
@@ -33,7 +33,7 @@ const ProductDetail = () => {
 
 				<div className='px-4 py-6 space-y-6'>
 					<div className='space-y-3'>
-						<div className='flex items-start justify-between gap-3'>
+						<div className='flex items-center justify-center'>
 							<h1 className='text-2xl font-bold leading-tight tracking-tight'>
 								{data?.name}
 							</h1>
