@@ -3,6 +3,7 @@ import {
 	DASHBOARD_PATH,
 	PRODUCT_CREATION_PATH,
 	PRODUCT_DETAIL_PATH,
+	PRODUCT_UPDATE_PATH,
 	PRODUCTS_PATH,
 	REPORTS_PATH,
 	RETURNS_PATH,
@@ -16,6 +17,7 @@ import AppLayout from "@/components/layout/app-layout";
 import Products from "@/pages/products/products.page";
 import ProductDetail from "@/pages/products/product-detail.page";
 import ProductCreation from "@/pages/products/product-creation.page";
+import ProductUpdate from "@/pages/products/product-update.page";
 import Sales from "@/pages/sales.page";
 import Returns from "@/pages/returns.page";
 import Reports from "@/pages/reports.page";
@@ -36,6 +38,7 @@ const Router = () => {
 							<Route path={PRODUCTS_PATH} element={<Products />} />
 							<Route path={PRODUCT_CREATION_PATH} element={<ProductCreation />} />
 							<Route path={PRODUCT_DETAIL_PATH} element={<ProductDetail />} />
+							<Route path={PRODUCT_UPDATE_PATH} element={<ProductUpdate />} />
 
 							<Route path={SALES_PATH} element={<Sales />} />
 							<Route path={RETURNS_PATH} element={<Returns />} />

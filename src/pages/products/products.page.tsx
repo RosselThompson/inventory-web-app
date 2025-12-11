@@ -14,14 +14,31 @@ import CardSkeleton from "@/components/common/skeleton/card-skeleton";
 import DropdownButton from "@/components/common/dropdown/dropdown-button";
 import { SlidersVertical } from "lucide-react";
 import { useNavigate } from "react-router";
-import { PRODUCT_CREATION_PATH, PRODUCTS_PATH } from "@/constants/path.constant";
-
+import {
+	PRODUCT_CREATION_PATH,
+	PRODUCTS_PATH,
+} from "@/constants/path.constant";
+import {
+	Dialog,
+	DialogContent,
+	DialogDescription,
+	DialogFooter,
+	DialogHeader,
+	DialogTitle,
+} from "@/components/ui/dialog";
+import type { UpdateProductStockDto } from "@/interfaces/dto/product.dto";
+import ProductUpdateStockForm from "./product-update-stock-form";
+import { useProductUpdateStock } from "@/api/hooks/mutations/use-product-update-stock";
+import { toast } from "sonner";
 const Products = () => {
 	const navigate = useNavigate();
 	const [query, setQuery] = useState("");
 	const [searchParam, setSearchParam] = useState<ProductSearchParam>("name");
 	const [isFiltered, setisFiltered] = useState(false);
 	const [products, setProducts] = useState<ProductResponse[]>([]);
+	const [isDialogOpen, setIsDialogOpen] = useState<boolean>(false);
+	const [selectedId, setSelectedId] = useState<string>("");
+	const { mutateAsync, isPending } = useProductUpdateStock(selectedId);
 
 	const debouncedQuery = useDebounce(query, 600);
 	const { data, isLoading, isError } = useProductList(
@@ -82,14 +99,53 @@ const Products = () => {
 
 	const handleSeachInputClean = () => setQuery("");
 
-	const onClickProductCard = (id: string) => navigate(`${PRODUCTS_PATH}/${id}`);
+	const onClickProductCardDetails = (id: string) =>
+		navigate(`${PRODUCTS_PATH}/${id}`);
+
+	const onClickProductCardEdit = (id: string) =>
+		navigate(`${PRODUCTS_PATH}/${id}/edit`);
 
 	const onClickAddProductButton = () => navigate(PRODUCT_CREATION_PATH);
+
+	const toggleStockDialog = () => {
+		setIsDialogOpen(!isDialogOpen);
+	};
+	const onClickUpdateStockButton = (id: string) => {
+		setSelectedId(id);
+		toggleStockDialog();
+	};
+
+	const handleSubmitDialog = async (values: UpdateProductStockDto) => {
+		console.log("update stock", values);
+		try {
+			const data = await mutateAsync(values);
+			toast.success(`${data.name} - product was updated`);
+			toggleStockDialog();
+		} catch (err) {
+			console.error(err);
+			toast.error(`Product has not been updated`);
+		}
+	};
 
 	if (isError) return <p>Error</p>;
 
 	return (
 		<div>
+			<Dialog open={isDialogOpen} onOpenChange={toggleStockDialog}>
+				<DialogContent className='sm:max-w-[425px]'>
+					<DialogHeader>
+						<DialogTitle>Update Stock</DialogTitle>
+						<DialogDescription>
+							This change will create a new movement in your inventory
+						</DialogDescription>
+					</DialogHeader>
+					<ProductUpdateStockForm
+						handleSubmitForm={handleSubmitDialog}
+						wrapButtonsComponent={DialogFooter}
+						isLoading={isPending}
+					/>
+				</DialogContent>
+			</Dialog>
 			<div className='sticky top-0 z-10 bg-background py-2'>
 				<div className='flex space-x-2'>
 					<div className='relative w-full'>
@@ -112,7 +168,15 @@ const Products = () => {
 				{isLoading ? (
 					<CardSkeleton />
 				) : (
-					sourceData.map((product) => <ProductCard key={product.sku} product={product} onClick={onClickProductCard}/>)
+					sourceData.map((product) => (
+						<ProductCard
+							key={product.sku}
+							product={product}
+							onClickViewDetail={onClickProductCardDetails}
+							onClickEdit={onClickProductCardEdit}
+							onClickUpdateStock={onClickUpdateStockButton}
+						/>
+					))
 				)}
 			</div>
 			{data?.meta.hasNextPage && (

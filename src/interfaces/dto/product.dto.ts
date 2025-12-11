@@ -9,3 +9,7 @@ export interface ProductDto {
 	stockQuantity: number;
 	description?: string;
 }
+
+export interface UpdateProductStockDto {
+	stockQuantity: number;
+}

@@ -32,7 +32,6 @@ const SignIn = () => {
 	const navigate = useNavigate();
 	const { mutateAsync, isPending } = useSignIn();
 	const [error, setError] = useState<string | undefined>();
-	const [originError, setoriginError] = useState<unknown>();
 
 	const form = useForm<SignInDto>({
 		resolver: zodResolver(signInSchema),
@@ -45,7 +44,6 @@ const SignIn = () => {
 			setAuthentication(data.access_token);
 			navigate(DASHBOARD_PATH);
 		} catch (err) {
-			setoriginError(err);
 			const message = handleException(err);
 			setError(message);
 		}
@@ -71,7 +69,7 @@ const SignIn = () => {
 					{error && (
 						<Alert variant='destructive' className='bg-red-100 border-0 mb-8'>
 							<AlertCircle className='h-4 w-4' />
-							<AlertDescription>{String(originError)}</AlertDescription>
+							<AlertDescription>{error}</AlertDescription>
 						</Alert>
 					)}
 					<Form {...form}>
