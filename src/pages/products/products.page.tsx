@@ -27,7 +27,7 @@ import {
 	DialogTitle,
 } from "@/components/ui/dialog";
 import type { UpdateProductStockDto } from "@/interfaces/dto/product.dto";
-import ProductUpdateStockForm from "./product-update-stock-form";
+import ProductUpdateStockForm from "../../components/product/product-update-stock-form";
 import { useProductUpdateStock } from "@/api/hooks/mutations/use-product-update-stock";
 import { toast } from "sonner";
 const Products = () => {

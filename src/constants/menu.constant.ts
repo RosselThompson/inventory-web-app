@@ -1,12 +1,20 @@
 import type { MenuItem } from "@/interfaces/common/menu.interface";
 import {
+	BILLING_PATH,
 	DASHBOARD_PATH,
 	PRODUCTS_PATH,
 	REPORTS_PATH,
 	RETURNS_PATH,
 	SALES_PATH,
 } from "./path.constant";
-import { Box, LayoutDashboard, Receipt, Sheet, Undo } from "lucide-react";
+import {
+	BadgeDollarSign,
+	Box,
+	LayoutDashboard,
+	Receipt,
+	Sheet,
+	Undo,
+} from "lucide-react";
 
 export const MENU_ITEMS: MenuItem[] = [
 	{
@@ -20,9 +28,14 @@ export const MENU_ITEMS: MenuItem[] = [
 		icon: Box,
 	},
 	{
+		title: "Billing",
+		url: BILLING_PATH,
+		icon: Receipt,
+	},
+	{
 		title: "Sales",
 		url: SALES_PATH,
-		icon: Receipt,
+		icon: BadgeDollarSign,
 	},
 	{
 		title: "Returns",

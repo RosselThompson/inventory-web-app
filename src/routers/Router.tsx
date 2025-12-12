@@ -1,5 +1,6 @@
 import { BrowserRouter, Navigate, Route, Routes } from "react-router";
 import {
+	BILLING_PATH,
 	DASHBOARD_PATH,
 	PRODUCT_CREATION_PATH,
 	PRODUCT_DETAIL_PATH,
@@ -21,32 +22,34 @@ import ProductUpdate from "@/pages/products/product-update.page";
 import Sales from "@/pages/sales.page";
 import Returns from "@/pages/returns.page";
 import Reports from "@/pages/reports.page";
+import Billing from "@/pages/billing.page";
 import { PrivateRoute } from "./private.route";
 import { AuthRoute } from "./auth.route";
 
 const Router = () => {
 	return (
 		<BrowserRouter>
-				<Routes>
-					<Route element={<AuthRoute />}>
-						<Route path={SIGN_IN_PATH} element={<SignIn />} />
-					</Route>
-					<Route element={<PrivateRoute />}>
-						<Route index element={<Navigate to={DASHBOARD_PATH} replace />} />
-						<Route path='/' element={<AppLayout />}>
-							<Route path={DASHBOARD_PATH} element={<Dashboard />} />
-							<Route path={PRODUCTS_PATH} element={<Products />} />
-							<Route path={PRODUCT_CREATION_PATH} element={<ProductCreation />} />
-							<Route path={PRODUCT_DETAIL_PATH} element={<ProductDetail />} />
-							<Route path={PRODUCT_UPDATE_PATH} element={<ProductUpdate />} />
+			<Routes>
+				<Route element={<AuthRoute />}>
+					<Route path={SIGN_IN_PATH} element={<SignIn />} />
+				</Route>
+				<Route element={<PrivateRoute />}>
+					<Route index element={<Navigate to={DASHBOARD_PATH} replace />} />
+					<Route path='/' element={<AppLayout />}>
+						<Route path={DASHBOARD_PATH} element={<Dashboard />} />
+						<Route path={PRODUCTS_PATH} element={<Products />} />
+						<Route path={PRODUCT_CREATION_PATH} element={<ProductCreation />} />
+						<Route path={PRODUCT_DETAIL_PATH} element={<ProductDetail />} />
+						<Route path={PRODUCT_UPDATE_PATH} element={<ProductUpdate />} />
 
-							<Route path={SALES_PATH} element={<Sales />} />
-							<Route path={RETURNS_PATH} element={<Returns />} />
-							<Route path={REPORTS_PATH} element={<Reports />} />
-						</Route>
+						<Route path={BILLING_PATH} element={<Billing />} />
+						<Route path={SALES_PATH} element={<Sales />} />
+						<Route path={RETURNS_PATH} element={<Returns />} />
+						<Route path={REPORTS_PATH} element={<Reports />} />
 					</Route>
-					<Route path='*' element={<NotFound />} />
-				</Routes>
+				</Route>
+				<Route path='*' element={<NotFound />} />
+			</Routes>
 		</BrowserRouter>
 	);
 };
